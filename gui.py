@@ -89,6 +89,7 @@ def encode():
 
 
 def decode():
+
     try :
         img = e1_value.get()
         image = Image.open(img, 'r')
@@ -143,6 +144,10 @@ b2 = Button(f3, text = 'Decode', command = decode).pack(side = RIGHT,ipadx = 30)
 f3.pack(padx = 40)
 
 def history() : 
-    pass
+    key = ''
+    if key == '' : 
+        pass
+    else : 
+        tsmg.showwarning('Warning', message= 'You aren\'t Authorized' )
 
 gui.mainloop()
