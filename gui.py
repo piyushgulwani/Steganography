@@ -21,7 +21,8 @@ label4.pack(fill = X, side = BOTTOM)
 #! Frame 1 Components
 
 def openfile() : 
-    gui.filename =  filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg", "*png", '.ico'),("all files","*.*")))
+    gui.filename =  filedialog.askopenfilename(initialdir = "/",
+title = "Select file",filetypes = (("jpeg files", "*.jpg", ".png"),("all files","*.*")))
     filechoosen = gui.filename
     e1_value.set(filechoosen)
     gui.update()
