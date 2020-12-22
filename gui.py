@@ -66,25 +66,32 @@ def encode():
     if e1_value.get() == None or e1_value.get() == '' : 
         msg.showerror('Error', 'Image File Not Provided ')
 
+    elif e2_value.get() == None or e2_value.get() == '' : 
+        msg.showerror('Error', 'Encoding Message Not Provided')
+
+    elif e3_value.get() == None or e3_value.get() == '' : 
+        msg.showerror('Error ', 'New Image Not Provided')
+
     else : 
+
         img = e1_value.get()
         image = Image.open(img, 'r')
 
-        data = input("Enter data to be encoded : ")
-        if (len(data) == 0):
-            raise ValueError('Data is empty')
+        data = e2_value.get()
 
         newimg = image.copy()
         encode_enc(newimg, data)
 
-        new_img_name = input("Enter the name of new image :\t ")
+        new_img_name = e3_value.get()
         newimg.save(new_img_name, str(new_img_name.split(".")[1].upper()))
-
+        msg.showinfo('Success', 'Message Encoded')
 
 
 def decode():
+
     if e1_value.get() == None or e1_value.get() == '' : 
         msg.showerror('Error', 'Image Not Provided !!')
+
     else :
         img = e1_value.get()
         image = Image.open(img, 'r')
@@ -106,8 +113,11 @@ def decode():
 
             data += chr(int(binstr, 2))
             if (pixels[-1] % 2 != 0):
+                # return data
+                e4_value.set(data)
+                gui.update()
                 msg.showinfo('Success', 'Message Decoded ')
-                return data
+                break
 
 
 #! Gui
@@ -130,7 +140,7 @@ label4.pack(fill = X, side = BOTTOM)
 
 def openfile() : 
     gui.filename =  filedialog.askopenfilename(initialdir = "/",
-title = "Select file",filetypes = (("jpeg files", "*.jpg"), ("png files", "*.png "),("all files","*.*")))
+title = "Select file",filetypes = (("jpeg files", "*.jpg"), ("png files", "*.png ")))
     filechoosen = gui.filename
     e1_value.set(filechoosen)
     gui.update()
@@ -143,9 +153,45 @@ e1_value = StringVar()
 e1 = Entry(f1, textvariable = e1_value)
 e1.grid(row = 0, column = 1, ipadx = 30, padx = 10)
 
-b1 = Button(f1, text = '📁', command = openfile)
+b1 = Button(f1, text = '📁', command = openfile, activebackground = 'cyan')
 b1.grid(row = 0, column = 2, ipadx = 10)
 f1.pack(side = TOP)
+
+#! Frame 3 Components 
+f3 = Frame(gui)
+
+l2 = Label(f3, text = 'Enter Message To be Encoded >>')
+l2.pack(side = LEFT, ipadx = 20)
+
+e2_value = StringVar()
+e2 = Entry(f3, textvariable = e2_value)
+e2.pack(ipadx = 35)
+
+f3.pack(pady = 20)
+
+#! Frame 4 Components 
+f4 = Frame(gui)
+
+l3 = Label(f4, text = 'Enter new image name  >>')
+l3.pack(ipadx = 35, side = LEFT)
+
+e3_value = StringVar()
+e3 = Entry(f4, textvariable = e3_value)
+e3.pack(ipadx = 35)
+
+f4.pack()
+
+#! Frame 5 Components 
+f5 = Frame(gui)
+
+l4 = Label(f5, text = 'Decoded Message  >>')
+l4.pack(ipadx = 35, side = LEFT)
+
+e4_value = StringVar()
+e4 = Entry(f5, textvariable = e4_value)
+e4.pack(ipadx = 40)
+
+f5.pack(pady = 20)
 
 #! Frame 2 Components 
 f2 = Frame(gui)
